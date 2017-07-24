@@ -6,6 +6,13 @@
 //  Copyright (c) 2013 cloudling. All rights reserved.
 //
 
+
+/*
+ AutoLayout 是 Apple 在 iOS6 中新增的 UI 布局适配的方法， 用来替代 iOS6 之前的 AutoResizeing。 AutoLayout 对应的代码约束是 NSLayoutConstaint
+ NSLayoutConstraint 的 API虽说十分简单， 但约束的代码量较大， 所以出现了很多对 NSLayoutConstraint的封装， Masonry 就其框架之一。
+ 
+ */
+
 #import <Foundation/Foundation.h>
 
 //! Project version number for Masonry.
