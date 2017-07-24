@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Budelmann on 20/07/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
-//
+//  UIView 约束接口
 
 #import "MASUtilities.h"
 #import "MASConstraintMaker.h"

@@ -16,6 +16,8 @@
 @interface MASConstraintMaker () <MASConstraintDelegate>
 
 @property (nonatomic, weak) MAS_VIEW *view;
+
+//存储所有的MASConstraint对象   就是你有好几行的 make.xxx 都会存储在这里
 @property (nonatomic, strong) NSMutableArray *constraints;
 
 @end
@@ -49,24 +51,30 @@
 }
 
 #pragma mark - MASConstraintDelegate
-
+// 替换函数
 - (void)constraint:(MASConstraint *)constraint shouldBeReplacedWithConstraint:(MASConstraint *)replacementConstraint {
     NSUInteger index = [self.constraints indexOfObject:constraint];
     NSAssert(index != NSNotFound, @"Could not find constraint %@", constraint);
     [self.constraints replaceObjectAtIndex:index withObject:replacementConstraint];
 }
-
+// 通过NSLayoutAttribute添加约束
 - (MASConstraint *)constraint:(MASConstraint *)constraint addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
+    //构造view的MASViewAttribute
     MASViewAttribute *viewAttribute = [[MASViewAttribute alloc] initWithView:self.view layoutAttribute:layoutAttribute];
+    //通过MASViewAttribute构造第一个MASViewContraint
     MASViewConstraint *newConstraint = [[MASViewConstraint alloc] initWithFirstViewAttribute:viewAttribute];
     if ([constraint isKindOfClass:MASViewConstraint.class]) {
+        //如果存在constraint  则把constraint和newConstraint组合成MASCompositeConstraint
         //replace with composite constraint
         NSArray *children = @[constraint, newConstraint];
         MASCompositeConstraint *compositeConstraint = [[MASCompositeConstraint alloc] initWithChildren:children];
         compositeConstraint.delegate = self;
+        
+        //替换原来的constraint成新的MASCompositeConstraint
         [self constraint:constraint shouldBeReplacedWithConstraint:compositeConstraint];
         return compositeConstraint;
     }
+    //不存在则设置constraint到self.constraints
     if (!constraint) {
         newConstraint.delegate = self;
         [self.constraints addObject:newConstraint];
@@ -137,11 +145,13 @@
 }
 
 #pragma mark - standard Attributes
-
+//通用增加约束的方法
 - (MASConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
     return [self constraint:nil addConstraintWithLayoutAttribute:layoutAttribute];
 }
 
+// 重写getter方法 调用 . 方法相当于构造约束
+// 相当于我make调用相应的property, 就是给view添加了某个NSLayoutAttribute的结构体
 - (MASConstraint *)left {
     return [self addConstraintWithLayoutAttribute:NSLayoutAttributeLeft];
 }

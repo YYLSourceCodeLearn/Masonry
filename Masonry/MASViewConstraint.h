@@ -20,11 +20,13 @@
 /**
  *	First item/view and first attribute of the NSLayoutConstraint
  */
+//代表第一个item 和相应的 attribute
 @property (nonatomic, strong, readonly) MASViewAttribute *firstViewAttribute;
 
 /**
  *	Second item/view and second attribute of the NSLayoutConstraint
  */
+// 代表第二个item 和相应的attribute
 @property (nonatomic, strong, readonly) MASViewAttribute *secondViewAttribute;
 
 /**

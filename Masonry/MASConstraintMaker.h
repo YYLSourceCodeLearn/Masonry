@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Budelmann on 20/07/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
-//
+//  约束构造使用的建造者builder
 
 #import "MASConstraint.h"
 #import "MASUtilities.h"
@@ -54,6 +54,8 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
 /**
  *	The following properties return a new MASViewConstraint
  *  with the first item set to the makers associated view and the appropriate MASViewAttribute
+ 
+ property 重写getter方法 使得每次链式调用相当于构造一个约束
  */
 @property (nonatomic, strong, readonly) MASConstraint *left;
 @property (nonatomic, strong, readonly) MASConstraint *top;

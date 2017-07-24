@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Budelmann on 21/07/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
-//
+//  表示系列view组合的约束结构体
 
 #import "MASConstraint.h"
 #import "MASUtilities.h"

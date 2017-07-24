@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+// 定义宏 MASBoxValue 转换类型
 
 #if TARGET_OS_IPHONE || TARGET_OS_TV
 
