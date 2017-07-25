@@ -113,6 +113,7 @@
     };
 }
 
+// 设置偏移 
 - (MASConstraint * (^)(CGFloat))offset {
     return ^id(CGFloat offset){
         self.offset = offset;
@@ -263,6 +264,8 @@
 #endif
 
 #pragma mark - Abstract
+
+//用宏抛出异常 MASMethodNotImplemented 
 
 - (MASConstraint * (^)(CGFloat multiplier))multipliedBy { MASMethodNotImplemented(); }
 

@@ -4,7 +4,9 @@
 //
 //  Created by Jonas Budelmann on 21/07/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
-//
+//  对 UIVIew 和 NSLayoutAttribute 的封装  MASViewAttribute = UIView(所约束的对象) + NSLayoutAttribute + item(对象上可被约束的部分)
+
+
 
 #import "MASViewAttribute.h"
 

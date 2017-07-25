@@ -17,6 +17,9 @@
  */
 @interface MASViewConstraint : MASConstraint <NSCopying>
 
+
+// 一个约束必须要有两组 <item， NSLayoutAttribute>的结构体，  下面两个 MASViewAttribute就是对应两组<item, NSlayoutAttribute>的结构体
+
 /**
  *	First item/view and first attribute of the NSLayoutConstraint
  */

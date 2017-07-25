@@ -35,7 +35,9 @@
 }
 
 - (NSArray *)install {
+    // 如果需要删除原来的约束
     if (self.removeExisting) {
+        // 获得所有约束并删除
         NSArray *installedConstraints = [MASViewConstraint installedConstraintsForView:self.view];
         for (MASConstraint *constraint in installedConstraints) {
             [constraint uninstall];
@@ -43,9 +45,11 @@
     }
     NSArray *constraints = self.constraints.copy;
     for (MASConstraint *constraint in constraints) {
+        // 设置更新 key
         constraint.updateExisting = self.updateExisting;
         [constraint install];
     }
+    // 去除所有缓存的约束结构体
     [self.constraints removeAllObjects];
     return constraints;
 }
@@ -63,6 +67,11 @@
     MASViewAttribute *viewAttribute = [[MASViewAttribute alloc] initWithView:self.view layoutAttribute:layoutAttribute];
     //通过MASViewAttribute构造第一个MASViewContraint
     MASViewConstraint *newConstraint = [[MASViewConstraint alloc] initWithFirstViewAttribute:viewAttribute];
+    
+    
+    // 如果调用的代码是 make.top.left.right 到 right 的时候。 就是 MASCompositeConstraint 对象的 .right 的调用， 会走 MASCompositeConstraint中重写的方法。 下面两个 if 条件都不会进入
+    
+    // 如果调用代码是 make.top.left 到 left 的时候其实是 MASViewContraint 对象 .left 的调用 会走下面代码
     if ([constraint isKindOfClass:MASViewConstraint.class]) {
         //如果存在constraint  则把constraint和newConstraint组合成MASCompositeConstraint
         //replace with composite constraint
@@ -75,10 +84,15 @@
         return compositeConstraint;
     }
     //不存在则设置constraint到self.constraints
+    // 当调用 make.top 的时候就会创建一个只有 firstViewAttribute 的 MASViewContraint 对象， 并进入下面不存在约束 constraint 的代码部分
     if (!constraint) {
+        // 设置 delegate
         newConstraint.delegate = self;
+        // 将约束添加到 self.cosntraints
         [self.constraints addObject:newConstraint];
     }
+    
+    //返回创建的 MASViewtraint
     return newConstraint;
 }
 

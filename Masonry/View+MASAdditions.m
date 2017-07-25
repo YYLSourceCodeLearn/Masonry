@@ -11,24 +11,36 @@
 
 @implementation MAS_VIEW (MASAdditions)
 
+// 负责创建安装约束
+// 返回的数组存放的就是当前视图中添加的所有约束（Masonry 框架对 NSLayoutConstraint 封装成了 MASViewConstraint，所以此数组中存储的是 MASViewCostraint 对象）
 - (NSArray *)mas_makeConstraints:(void(^)(MASConstraintMaker *))block {
+    // 去掉自动 autoresizing 转为约束
     self.translatesAutoresizingMaskIntoConstraints = NO;
+    //构建 builder
     MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:self];
+    //运行 builder
+    //block 中所作的事情就是之前用户设置约束时所添加的代码
     block(constraintMaker);
+    //赋值约束返回
+    //进行约束添加， 并返回所有 Install 的约束数组（Array<MASConstraint>）
     return [constraintMaker install];
 }
 
+// 更新已经存在的约束， 若约束不能在就 Install
 - (NSArray *)mas_updateConstraints:(void(^)(MASConstraintMaker *))block {
     self.translatesAutoresizingMaskIntoConstraints = NO;
     MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:self];
+    // 当添加约束时 要检查约束是否已经被安装了， 如果被添加了就更新，如果没有添加就添加
     constraintMaker.updateExisting = YES;
     block(constraintMaker);
     return [constraintMaker install];
 }
 
+// 移除原来已经创建的约束 并添加上新的约束
 - (NSArray *)mas_remakeConstraints:(void(^)(MASConstraintMaker *make))block {
     self.translatesAutoresizingMaskIntoConstraints = NO;
     MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:self];
+    // 将当前视图上旧约束进行移除，然后添加新的约束
     constraintMaker.removeExisting = YES;
     block(constraintMaker);
     return [constraintMaker install];
@@ -145,10 +157,12 @@
 }
 
 #pragma mark - heirachy
-
+// 寻找两个视图的最近公共父视图（类比两个数字的最小公倍数）
+// 寻找两个视图的公共父视图对于约束的添加是非常重要的，因为相对的约束是添加到公共的父视图上
 - (instancetype)mas_closestCommonSuperview:(MAS_VIEW *)view {
+    //暂存父视图
     MAS_VIEW *closestCommonSuperview = nil;
-
+    
     MAS_VIEW *secondViewSuperview = view;
     while (!closestCommonSuperview && secondViewSuperview) {
         MAS_VIEW *firstViewSuperview = self;

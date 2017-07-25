@@ -14,6 +14,7 @@
 @property (nonatomic, strong) id mas_key;
 
 //存储内部结构体 都是MASViewConstraint
+//childConstraints 中存储的是每一条 MASViewConstraint 
 @property (nonatomic, strong) NSMutableArray *childConstraints;
 
 @end
@@ -26,6 +27,7 @@
 
     _childConstraints = [children mutableCopy];
     for (MASConstraint *constraint in _childConstraints) {
+        // 会把里面的 MASViewConstraint 的 delegate 全部设置到 MASCompositeConstraint 对象身上
         constraint.delegate = self;
     }
 
@@ -40,6 +42,9 @@
     [self.childConstraints replaceObjectAtIndex:index withObject:replacementConstraint];
 }
 
+
+// 如果调用的代码是 make.top.left.right 到 right 的时候， 就是 MASCompositeConstraint 对象 .right 的调用  会调用下面方法。 之后再有更多的链式MASConstraint 的组合，都是 MASCompositeConstraint 的调用，不停的加入 childConstraints 中而已。 同理 superView.mas_top 的构成也是同样的方式
+// 直到调到 mas_equalTo(xx)
 - (MASConstraint *)constraint:(MASConstraint __unused *)constraint addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute {
     id<MASConstraintDelegate> strongDelegate = self.delegate;
     MASConstraint *newConstraint = [strongDelegate constraint:self addConstraintWithLayoutAttribute:layoutAttribute];
@@ -83,6 +88,7 @@
 
 - (MASConstraint * (^)(id, NSLayoutRelation))equalToWithRelation {
     return ^id(id attr, NSLayoutRelation relation) {
+        // 遍历所有的 MASViewConstraint 并设置
         for (MASConstraint *constraint in self.childConstraints.copy) {
             constraint.equalToWithRelation(attr, relation);
         }

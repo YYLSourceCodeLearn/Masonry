@@ -49,14 +49,16 @@ typedef NS_OPTIONS(NSInteger, MASAttribute) {
  *  Constraints are collected until they are ready to be installed
  *
  */
+// MASConstraintMarker  负责对 MASViewConstraint 进行实例化
+// MASViewConstraint = View + NSLayoutConstraint + Install
 @interface MASConstraintMaker : NSObject
 
 /**
  *	The following properties return a new MASViewConstraint
  *  with the first item set to the makers associated view and the appropriate MASViewAttribute
- 
- property 重写getter方法 使得每次链式调用相当于构造一个约束
  */
+
+//property 重写getter方法 使得每次链式调用相当于构造一个约束
 @property (nonatomic, strong, readonly) MASConstraint *left;
 @property (nonatomic, strong, readonly) MASConstraint *top;
 @property (nonatomic, strong, readonly) MASConstraint *right;
