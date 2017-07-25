@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Budelmann on 3/08/13.
 //  Copyright (c) 2013 Jonas Budelmann. All rights reserved.
-//
+//  NSLayoutConstraint 多了一层key的封装
 
 #import "MASUtilities.h"
 

@@ -4,7 +4,7 @@
 //
 //  Created by Nick Tymchenko on 29/04/14.
 //  Copyright (c) 2014 cloudling. All rights reserved.
-//
+//  定义MASConstraint接口和delegate代理
 
 #import "MASConstraint.h"
 

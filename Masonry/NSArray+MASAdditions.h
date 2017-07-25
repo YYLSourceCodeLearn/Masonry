@@ -4,7 +4,7 @@
 //
 //  Created by Daniel Hammond on 11/26/13.
 //
-//
+//  遍历NSArray 中的UIView约束接口
 
 #import "MASUtilities.h"
 #import "MASConstraintMaker.h"

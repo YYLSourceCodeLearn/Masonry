@@ -16,17 +16,21 @@
 
 /**
  *  The view which the reciever relates to. Can be nil if item is not a view.
+ //调用view
  */
+
 @property (nonatomic, weak, readonly) MAS_VIEW *view;
 
 /**
  *  The item which the reciever relates to.
  */
+//交互对象
 @property (nonatomic, weak, readonly) id item;
 
 /**
  *  The attribute which the reciever relates to
  */
+//约束NSLayoutAttribute类型
 @property (nonatomic, assign, readonly) NSLayoutAttribute layoutAttribute;
 
 /**

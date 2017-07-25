@@ -12,6 +12,8 @@
 @interface MASCompositeConstraint () <MASConstraintDelegate>
 
 @property (nonatomic, strong) id mas_key;
+
+//存储内部结构体 都是MASViewConstraint
 @property (nonatomic, strong) NSMutableArray *childConstraints;
 
 @end

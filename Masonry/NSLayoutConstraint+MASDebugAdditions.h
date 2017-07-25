@@ -3,8 +3,8 @@
 //  Masonry
 //
 //  Created by Jonas Budelmann on 3/08/13.
-//  Copyright (c) 2013 Jonas Budelmann. All rights reserved.
-//
+//  Copyright (c) 2013 Jonas  Budelmann. All rights reserved.
+//  DEBUG 相关信息转换
 
 #import "MASUtilities.h"
 

@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Budelmann on 22/07/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
-//
+//  定义链式结构体的抽象父类
 
 #import "MASUtilities.h"
 
